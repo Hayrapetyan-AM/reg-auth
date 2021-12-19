@@ -41,9 +41,14 @@
 			public function auth()
 			{
 				require('dbConn.php');
-				$query = $db->prepare('SELECT * FROM `users` WHERE `email` = ?'); // подготавливаем запрос который выберет все значения связанные с введеным email
-				$query->execute([$this->email]); // подсталяем никнейм и выполняем
-				$user = $query->fetch(PDO::FETCH_OBJ); // получаем данные в виде объекта
+				try{
+					$query = $db->prepare('SELECT * FROM `users` WHERE `email` = ?'); // подготавливаем запрос который выберет все значения связанные с введеным email
+					$query->execute([$this->email]); // подсталяем никнейм и выполняем
+					$user = $query->fetch(PDO::FETCH_OBJ); // получаем данные в виде объекта
+				}catch(PDOException $e){
+					echo "Error. " . $e->getMessage();
+				}
+				
 				if ($user && password_verify($this->pass, $user->password)) // если запрос удался и есть пееменная $user, и если проверка на подлинность пароля в базе и пароля введенного удалась
 				{	
 							// session_start();
