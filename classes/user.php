@@ -58,9 +58,15 @@
 			static function statusCheck($user_email)
 			{	
 					 require('dbConn.php');
-				 	 $statusQuery = $db->prepare('SELECT status FROM `users` WHERE `email` = ?');
-					 $statusQuery->execute([$user_email]);
-					 $statusQuery = $statusQuery->fetch(PDO::FETCH_OBJ);
+				 	 try
+				 	 {
+				 	 	$statusQuery = $db->prepare('SELECT status FROM `users` WHERE `email` = ?');
+					 	$statusQuery->execute([$user_email]);
+					 	$statusQuery = $statusQuery->fetch(PDO::FETCH_OBJ);
+				 	 }catch(PDOException $e)
+				 	 {
+				 	 	echo '<div class="alert alert-danger m-auto container">ERROR! ' . $e->getMessage() . '</div>';
+				 	 }
 					
 					if ($statusQuery->status == "need2verify") {
 						?>
@@ -72,17 +78,40 @@
 							 	</div>
 
 							 	<div class="col-lg-5">
-							 		<input type="text" class="form-control" placeholder="verification code" name="verify">
+							 		<input type="text" class="form-control" placeholder="verification code" name="verification_code">
 							 	</div>
 
 							 	<div class="col-lg-2">
-							 		<button type="submit" class="form-control btn btn-danger">Verify</button>
+							 		<button type="submit" class="form-control btn btn-danger" name="submit">Verify</button>
 							 	</div>
 
 							</div>
 							</div>
 						</form>
 						<?
+						if (isset($_POST['submit'])) 
+						{
+							if ($_POST['verification_code'] == $_COOKIE['verify']) 
+							{
+								try
+							 	 {
+							 	 	$query = $db->prepare("UPDATE users SET status = 'verified' WHERE email = ?");
+									$query->execute([$user_email]);
+									header("Location:" . $_SERVER['PHP_SELF']);
+							 	 }catch(PDOException $e)
+								 {
+								 	echo '<div class="alert alert-danger m-auto container">ERROR! ' . $e->getMessage() . '</div>';
+								 }
+							}
+						}
+					}
+
+
+					if ($statusQuery->status == "verified") 
+					{
+						
+						echo '<div class="alert alert-success m-auto text-center mt-5 container">Success! Now you are verified</div>';
+						
 					}
 					
 			}

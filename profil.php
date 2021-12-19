@@ -10,7 +10,14 @@
 <?php 
 		require_once __DIR__.("/classes/user.php");
 		
-		user::statusCheck($_COOKIE['user-email']);
+		if (isset($_COOKIE['user-email'])) 
+        {
+            user::statusCheck($_COOKIE['user-email']);
+        }else
+        {
+           echo '<div class="alert alert-danger m-auto container">ERROR! Please sign in again</div>'; 
+           exit();
+        }
 ?>
  </body>
  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
