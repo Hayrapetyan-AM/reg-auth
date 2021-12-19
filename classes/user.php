@@ -33,9 +33,12 @@
 								  echo '<div class="alert alert-danger m-auto container">ERROR! ' . $e->getMessage() . '</div>'; // сообщение ерор в случаи ошибки
 								  die(); // завершение скрипта
 					 			}
-		 	  	}else echo '<div class="alert alert-danger container m-auto">ERROR: email already exists! </div>'; // сообщение ерора, что такой никнейм уже существует, поскольку запрос в переменной $checkQuery удался - сверху.
-		 	  	die();
-		 	  	header('Location:' . $_SERVER['PHP_SELF']); //редирек на самого себя, чтобы очистить будер пост
+		 	  	}else
+		 	  	{
+			 	  	 echo '<div class="alert alert-danger container m-auto">ERROR: email already exists! </div>'; // сообщение ерора, что такой никнейм уже существует, поскольку запрос в переменной $checkQuery удался - сверху.
+			 	  	die();
+		 	  	}
+		 	  	//header('Location:' . $_SERVER['PHP_SELF']); //редирек на самого себя, чтобы очистить будер пост
 			}
 
 			public function auth()
@@ -48,7 +51,7 @@
 				}catch(PDOException $e){
 					echo "Error. " . $e->getMessage();
 				}
-				
+
 				if ($user && password_verify($this->pass, $user->password)) // если запрос удался и есть пееменная $user, и если проверка на подлинность пароля в базе и пароля введенного удалась
 				{	
 							// session_start();

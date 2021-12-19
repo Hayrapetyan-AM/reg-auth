@@ -36,7 +36,14 @@
 if (isset($_POST['submit'])) 
 {
   require_once('classes/user.php');
-  $user = new user($_POST['email'], $_POST['password']);
+
+
+  // Remove all illegal characters from email
+  $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+  // Validate e-mail
+  $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+  $user = new user($email, $_POST['password']);
   $user->auth();
 }
 
