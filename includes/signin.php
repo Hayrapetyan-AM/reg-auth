@@ -37,7 +37,7 @@ if (isset($_POST['submit']))
 {
   require_once('classes/user.php');
 
-
+  $email = $_POST['email'];
   // Remove all illegal characters from email
   $email = filter_var($email, FILTER_SANITIZE_EMAIL);
   // Validate e-mail

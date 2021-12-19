@@ -58,6 +58,7 @@
 							// $_SESSION['email'] = $this->email;
 							setcookie("user-email", $this->email,time()+3600);
 							echo '<div class="alert alert-success m-auto container">Success!</div>'; // вывод об успешной авторизации
+
 							header('Location: profil.php'); // редирект 
 					
 				}else echo '<div class="alert alert-danger m-auto container">ERROR: wrong password or email</div>'; // вывод ошибки
@@ -134,6 +135,10 @@
 										
 										$m = mail($this->email, 'Email verification', $message,'From: hayrapetyan2203@gmail.com');
 			}
+
+
+
+
 		}
 ?>
 					

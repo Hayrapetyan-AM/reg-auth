@@ -15,8 +15,9 @@
             user::statusCheck($_COOKIE['user-email']);
         }else
         {
-           echo '<div class="alert alert-danger m-auto container">ERROR! Please sign in again</div>'; 
-           exit();
+           echo '<div class="alert alert-danger m-auto container mt-5">ERROR! Please sign in again</div>'; 
+           var_dump($_COOKIE);
+           //exit();
         }
 ?>
  </body>
