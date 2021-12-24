@@ -16,7 +16,6 @@
         }else
         {
            echo '<div class="alert alert-danger m-auto container mt-5">ERROR! Please sign in again</div>'; 
-           var_dump($_COOKIE);
            //exit();
         }
 ?>

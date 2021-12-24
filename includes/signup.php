@@ -10,13 +10,13 @@
       </div>
       <div class="col-md-10 mx-auto col-lg-5 text-black mt-5">
 
-        <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" action="index.php?show=Sign-up">
+        <form class="p-4 p-md-5 border rounded-3 bg-light "  method="post" action="index.php?show=Sign-up">
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
             <label for="floatingInput">Email address</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required required pattern=".{8,}"   required title="8 chars minimum">
             <label for="floatingPassword">Password</label>
           </div>
           <div class="checkbox mb-3">
